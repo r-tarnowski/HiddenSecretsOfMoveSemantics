@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(PerfectForwarding)
+project(HiddenSecretsOfMoveSemantics)
 
 set(CMAKE_BUILD_TYPE Release)
 
