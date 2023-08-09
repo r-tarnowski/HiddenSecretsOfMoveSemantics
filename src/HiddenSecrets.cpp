@@ -66,6 +66,11 @@ public:
        vals.push_back( std::move( v ) );
    }
 
+    void insert( const  std::string && v ) {
+        std::cout << "insert( const std::string && v ) called - ops! - semantic contradiction" << std::endl;
+        vals.push_back( v );
+    }
+
    void print() const {
        std::cout << "Cont: \n";
        for ( const auto & v : vals ) {
@@ -81,19 +86,35 @@ int main(int argc, char *argv[]) {
 
    Cont txt;
 
-   std::string str = "hello";
-   mem( str );
-   txt.insert( str );
-   txt.print();
+   std::string str_hello = "str_hello";
+   mem( str_hello );
+   txt.insert( str_hello );
+   //txt.print();
 
    txt.insert( getConstString( "const_string" ) );
-   txt.print();
+   //txt.print();
 
    txt.insert( getString( "non_const_string_1" ) );
-   txt.print();
+   //txt.print();
 
    txt.insert( getString( "non_const_string_2" ) );
-   txt.print();
+   //txt.print();
+
+    mem( str_hello );
+    txt.insert( std::move(str_hello) );
+
+    std::string helloFromGetString = getString( "hello_from_getString" );
+    mem( helloFromGetString );
+    txt.insert( std::move(helloFromGetString) );
+
+    str_hello = "str_hello_initialised_again";
+    mem( str_hello );
+    txt.insert( std::move(str_hello) );
+
+
+    txt.print();
+
+
 
 /*
    std::string fromGet = getString( "string2" );
